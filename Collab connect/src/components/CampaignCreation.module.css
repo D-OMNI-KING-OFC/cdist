@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+:root{
+  --primary: #0b66ff;
+  --primary-2: #0056ff;
+  --accent-grad: linear-gradient(90deg,#FF5A2D,#D633FF);
+  --bg-0: #030414;
+  --panel-bg: rgba(255,255,255,0.03);
+  --panel-border: rgba(255,255,255,0.06);
+  --muted: rgba(255,255,255,0.66);
+  --text: rgba(255,255,255,0.94);
+  --radius: 14px;
+  --shadow-lg: 0 18px 50px rgba(2,6,23,0.7);
+  --container-max: 1100px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:"Noto Sans KR", 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Arial; background: linear-gradient(180deg,var(--bg-0) 0%, #061029 100%); color:var(--text)}
+
+.container{max-width:var(--container-max);margin:0 auto;padding:0 1rem}
+
+/* header styles retained by structure but darker glass */
+header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:transparent}
+.header-left{display:flex;align-items:center;gap:1rem}
+.header-left h2{margin:0;font-weight:800}
+.logo-icon{width:32px;height:32px}
+
+/* main */
+main{padding:2rem 1rem}
+.max-w-4xl{max-width:64rem;margin:0 auto}
+
+/* card */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  border-radius: calc(var(--radius) + 2px);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.step-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.step-row .left{color:var(--text);font-weight:700}
+.step-row .right{color:var(--primary);font-weight:800}
+
+.progress-track{width:100%;height:10px;border-radius:999px;background:rgba(255,255,255,0.03);overflow:hidden;border:1px solid rgba(255,255,255,0.02)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-2));border-radius:999px;width:0;transition:width 320ms ease}
+
+/* form grid */
+.form-stack>*+*{margin-top:1.5rem}
+.form-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:768px){.form-grid{grid-template-columns:repeat(2,1fr);gap:1.5rem}}
+
+label{display:block;font-size:.95rem;margin-bottom:.5rem;color:var(--muted);font-weight:700}
+
+.input,.select,.textarea{display:block;width:100%;padding:.75rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--text);outline:none;font-size:1rem;transition:box-shadow .15s ease,transform .12s ease}
+.input::placeholder,.textarea::placeholder{color:rgba(255,255,255,0.38)}
+.input:focus,.select:focus,.textarea:focus{box-shadow:0 8px 28px rgba(11,102,255,0.12) inset;border-color:rgba(11,102,255,0.28)}
+.textarea{min-height:120px;resize:vertical}
+
+.input-with-icon{position:relative}
+.input-with-icon .icon-left{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.input-with-icon .input{padding-left:2.4rem}
+
+/* helper visually-hidden */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;border:0!important}
+
+/* actions */
+.form-actions{display:flex;align-items:center;justify-content:flex-end;gap:1rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.03);margin-top:1.25rem}
+.btn{border:0;cursor:pointer;padding:.6rem 1rem;border-radius:12px;font-weight:800;font-size:.95rem;transition:transform .15s ease,box-shadow .15s ease}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.04)}
+.btn-primary{background:linear-gradient(90deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 10px 30px rgba(11,102,255,0.16)}
+
+/* misc */
+.text-slate-900{color:var(--text)}
+.text-slate-600{color:var(--muted)}
+
+/* responsive tweaks */
+@media(min-width:768px){.card{padding:2.5rem}}
+
+/* fade-in observer */
+.section{opacity:0;transform:translateY(30px);transition:opacity .6s ease-out,transform .6s ease-out}
+.fadeIn{opacity:1!important;transform:translateY(0)!important}
+
+/* smaller controls */
+.input[type="number"]{-moz-appearance:textfield}
+
+/* validation messages */
+.alert{color:#ff9b9b;font-size:.95rem;margin-top:.5rem}
+
+/* keep previously used helper classes intact for TSX compatibility */
+.card .left{font-weight:600}
+
+/* ensure select/options inherit dark look */
+.select option{background:transparent;color:var(--text)}
+
+/* subtle focus for interactive elements */
+button:focus, input:focus, select:focus, textarea:focus{outline:none}

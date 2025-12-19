@@ -1,0 +1,263 @@
+:root{
+  --sidebar-w-desktop: 280px;
+  --sidebar-w-tablet: 220px;
+  --gutter: 16px;
+}
+
+/* core layout helpers used by Dashboard.tsx */
+.dashboardWrap {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Sidebar hidden on mobile */
+.sidebar {
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 998;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .mobileNavToggle {
+    display: block;
+  }
+}
+
+
+.sidebar {
+  width: var(--sidebar-w-desktop);
+  flex: 0 0 var(--sidebar-w-desktop);
+  min-width: var(--sidebar-w-desktop);
+}
+
+.main {
+  flex: 1 1 auto;
+  padding: 28px;
+  box-sizing: border-box;
+  min-width: 0; /* allow children to shrink */
+}
+
+.header {
+  margin-bottom: 18px;
+}
+
+/* Summary cards grid on the home tab */
+.summaryGrid {
+  display: grid;
+  gap: var(--gutter);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Content preview cards / sections */
+.previewGrid {
+  display: grid;
+  gap: var(--gutter);
+  grid-template-columns: 1fr 1fr;
+}
+
+.previewCard {
+  border-radius: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.previewInnerScroll {
+  max-height: 220px;
+  overflow: auto;
+  padding-right: 6px; /* small gap for scrollbar space */
+}
+
+/* make embedded components full width and responsive */
+.sectionFull {
+
+  width: 100%;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+/* Navbar items container used in sidebar */
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+.navItemIconOnly {
+  justify-content: center;
+}
+
+.navItemActive {
+  background-color: rgba(19,164,236,0.08);
+  color: #0b66ff;
+}
+
+/* utility for switching sidebar to collapsed / icon-only */
+.sidebarCollapsed {
+  width: 72px !important;
+  min-width: 72px !important;
+  flex: 0 0 72px !important;
+}
+
+/* Responsive rules */
+/* Tablet: reduce sidebar width, adjust grids */
+@media (max-width: 1024px) and (min-width: 641px) {
+  :root{
+    --sidebar-w-desktop: var(--sidebar-w-tablet);
+  }
+  .summaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .previewGrid {
+    grid-template-columns: 1fr; /* stack previews on tablet */
+  }
+  .previewInnerScroll {
+    max-height: 280px;
+  }
+}
+
+/* Mobile: collapse sidebar into a top strip and stack content vertically */
+@media (max-width: 640px) {
+  .dashboardWrap {
+    flex-direction: column;
+  }
+/* Sidebar base */
+.sidebar {
+  width: 280px;
+  border-right: 1px solid #e6eef6;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Mobile: hidden by default */
+@media (max-width: 768px) {
+  .sidebar{
+    position: fixed;      /* take it out of layout */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 99;
+    transform: translateX(-100%); /* hide offscreen */
+    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0); /* slide in */
+  }
+
+  .mobileNavToggle {
+    display: block;
+  }
+}
+
+/* Optional: prevent scrolling main content when nav is open */
+.bodyNoScroll {
+  overflow: hidden;
+}
+
+
+  .main {
+    order: 1;
+    padding: 16px;
+  }
+
+  /* Make nav items icon-first and hide labels via helper class */
+  .navLabelHidden {
+    display: none;
+  }
+
+  .navList {
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .previewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .previewInnerScroll {
+    max-height: 220px;
+  }
+
+  /* make buttons & interactive controls full-width and stacked */
+  .stackedControls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stackedControls > * {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Small utility breakpoints for very wide screens */
+@media (min-width: 1400px) {
+  .main {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+  .summaryGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Safe helpers so embedded components don't overflow horizontally */
+.responsiveIframeFix, .embeddedComponent {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Accessibility: ensure focus outlines on nav items when keyboard navigating */
+.navItem:focus {
+  outline: 3px solid rgba(13,176,240,0.18);
+  outline-offset: 2px;
+}
+
+/* Small helpers to tweak card preview heights at breakpoints */
+@media (max-width: 900px) {
+  .previewInnerScroll { max-height: 200px; }
+}
+
+@media (max-width: 480px) {
+  .previewInnerScroll { max-height: 160px; }
+}

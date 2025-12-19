@@ -1,0 +1,498 @@
+/* wallet-ui.css
+ *
+ * Extracted UI layer from the provided SVG (BrandCo Wallet Dashboard).
+ * - Single file with light + custom dark theme via CSS variables
+ * - Uses the exact Google font from the SVG: Manrope
+ * - Contains all colors, typography, layout, shadows and component classes
+ *
+ * Drop this file into your project and apply `[data-theme="dark"]` on a top-level
+ * element (eg. <html data-theme="dark"> or <body data-theme="dark">) to enable dark mode.
+ */
+
+/* ------------------------------------------------------------
+   Fonts & Base
+   ------------------------------------------------------------ */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap");
+
+:root {
+  /* Color tokens (light) - taken from SVG */
+  --primary: #13a4ec;            /* brand blue */
+  --primary-700: #0b7fcf;
+  --background: #f6f7f8;         /* overall page bg (light) */
+  --panel: #ffffff;              /* card/panel background (light) */
+  --panel-border: #e6e9ec;       /* panel border / hairline */
+  --muted: #6b7280;              /* body-muted text */
+  --text-900: #111827;           /* dark headings */
+  --text-800: #1f2937;
+  --accent-active-bg: #e6f7ff;   /* active nav item background */
+  --accent-active-color: #0b7fcf;/* active nav icon/text color */
+  --table-head-bg: #f8fafc;
+  --success: #10b981;
+  --danger: #ef4444;
+
+  /* Layout tokens */
+  --sidebar-width: 256px;
+  --gutter: 24px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Typography */
+  --font-family-display: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --h1-size: 36px;
+  --h2-size: 24px;
+  --lead-size: 14px;
+  --table-head-size: 13px;
+  --table-body-size: 14px;
+
+  /* Shadows */
+  --shadow-soft: 0 8px 18px rgba(0,0,0,0.08);
+  --shadow-card: 0 12px 30px rgba(6, 16, 22, 0.12);
+
+  /* Misc */
+  --max-content-width: 992px;
+  --max-page-width: 1200px;
+  --space-xxs: 6px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 24px;
+  --space-lg: 40px;
+}
+
+/* Completely custom dark theme variables (use on [data-theme="dark"]) */
+[data-theme="dark"] {
+  --primary: #60a5fa;           /* slightly lighter brand blue for dark mode */
+  --primary-700: #3b82f6;
+  --background: #0f1a22;        /* dark page background (custom) */
+  --panel: #18262d;             /* dark panel background (custom) */
+  --panel-border: #1f2f38;
+  --muted: #94a3b8;             /* muted text in dark */
+  --text-900: #e6eef7;
+  --text-800: #f8fafc;
+  --accent-active-bg: rgba(11,127,207,0.12);
+  --accent-active-color: #60a5fa;
+  --table-head-bg: #0b1720;
+  --success: #34d399;
+  --danger: #f87171;
+  --shadow-soft: 0 10px 24px rgba(2,6,23,0.6);
+  --shadow-card: 0 14px 36px rgba(2,6,23,0.6);
+}
+
+/* ------------------------------------------------------------
+   Global reset & base elements
+   ------------------------------------------------------------ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  font-family: var(--font-family-display);
+  color: var(--text-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* utility sizes used in SVG */
+.size-6 { width: 2rem; height: 2rem; }
+.size-8 { width: 2.5rem; height: 2.5rem; }
+.size-10 { width: 2.75rem; height: 2.75rem; border-radius: 9999px; }
+
+/* material icon helper (SVG used material symbols in SVG) */
+.material { font-family: "Material Symbols Outlined", var(--font-family-display); }
+
+/* subtle textual helpers */
+.muted { color: var(--muted); }
+.hard-muted { color: var(--muted); font-size: 13px; }
+
+/* ------------------------------------------------------------
+   Layout: sidebar + main
+   ------------------------------------------------------------ */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--panel);
+  border-right: 1px solid var(--panel-border);
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Brand title at top of sidebar */
+.sidebar .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--text-800);
+}
+
+/* Nav list */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-800);
+  transition: background 160ms, color 160ms, transform 120ms;
+  user-select: none;
+}
+
+.nav-item > svg,
+.nav-item .icon { display: inline-block; width: 24px; height: 24px; flex: 0 0 24px; }
+
+.nav-item:hover {
+  background: rgba(0,0,0,0.03);
+  transform: translateY(-1px);
+}
+
+/* Active nav item */
+.nav-item.active,
+.nav-item.active:hover {
+  background: var(--accent-active-bg);
+  color: var(--accent-active-color);
+}
+
+.nav-item.active svg path,
+.nav-item.active .icon { fill: var(--accent-active-color); }
+
+/* compact nav item text */
+.nav-item .label {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ------------------------------------------------------------
+   Main area
+   ------------------------------------------------------------ */
+.main {
+  flex: 1 1 auto;
+  padding: var(--space-lg);
+  max-width: var(--max-page-width);
+}
+
+/* Page header */
+.page-header {
+  font-size: var(--h1-size);
+  font-weight: 800;
+  margin: 0;
+  color: var(--text-900);
+}
+
+.page-subtitle {
+  margin-top: 6px;
+  font-size: var(--lead-size);
+  color: var(--muted);
+}
+
+/* Small layout helper for center constraining big cards */
+.content {
+  margin-top: var(--space-md);
+  max-width: var(--max-content-width);
+}
+
+/* ------------------------------------------------------------
+   Wallet card (points)
+   ------------------------------------------------------------ */
+.wallet-card {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-soft);
+  gap: 12px;
+}
+
+.wallet-card .left {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-card .meta {
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+.wallet-card .points {
+  font-size: 36px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+/* icon container on the right */
+.wallet-card .icon {
+  width: 48px;
+  height: 48px;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark-mode variant tweak for wallet card */
+[data-theme="dark"] .wallet-card {
+  background: linear-gradient(180deg, rgba(11,127,207,0.18), rgba(11,127,207,0.12));
+  color: var(--text-900);
+}
+
+/* ------------------------------------------------------------
+   Transaction history table
+   ------------------------------------------------------------ */
+.table-card {
+  margin-top: var(--space-lg);
+  background: var(--panel);
+  border-radius: var(--radius-md);
+  padding: 0;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--panel-border);
+  overflow: hidden;
+}
+
+/* table head area */
+.table-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  background: var(--table-head-bg);
+}
+
+.table-head .col-date { width: 200px; font-size: var(--table-head-size); font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.table-head .col-desc { flex: 1; font-size: var(--table-head-size); font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.table-head .col-points { width: 160px; text-align: right; font-size: var(--table-head-size); font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+/* table body - list of rows */
+.table-body {
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* single row block (SVG rows were placed in groups) */
+.table-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  border-bottom: 1px solid var(--panel-border);
+  padding: 12px 0;
+}
+
+.table-row:last-child { border-bottom: 0; }
+
+.table-row .col-date {
+  width: 200px;
+  color: var(--muted);
+  font-size: var(--table-body-size);
+}
+
+.table-row .col-desc {
+  flex: 1;
+  color: var(--text-800);
+  font-size: var(--table-body-size);
+}
+
+.table-row .col-points {
+  width: 160px;
+  text-align: right;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* success / negative styling for points */
+.table-row .col-points.positive { color: var(--success); }
+.table-row .col-points.negative { color: var(--danger); }
+
+/* ------------------------------------------------------------
+   Badges & chips
+   ------------------------------------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(0,0,0,0.04);
+  color: var(--text-900);
+}
+
+.badge--active {
+  background: #e6f7ff;
+  color: var(--accent-active-color);
+}
+
+.badge--completed {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+[data-theme="dark"] .badge--completed {
+  background: rgba(255,255,255,0.02);
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-800);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .btn-ghost {
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* small variants */
+.btn-sm { padding: 6px 10px; font-size: 14px; border-radius: 6px; }
+
+/* ------------------------------------------------------------
+   Modal / overlay classes (used by some interactions)
+   ------------------------------------------------------------ */
+.modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  background: rgba(2,6,23,0.45);
+  padding: 16px;
+}
+
+.modal-content {
+  width: 520px;
+  max-width: calc(100% - 32px);
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  color: var(--text-900);
+}
+
+/* form input */
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  color: var(--text-900);
+  font-size: 14px;
+}
+
+[data-theme="dark"] .form-input { border-color: rgba(255,255,255,0.06); color: var(--text-900); }
+
+.form-actions { display: flex; gap: 12px; align-items: center; justify-content: flex-end; margin-top: 12px; }
+
+/* small muted text within forms */
+.muted-ctx { color: var(--muted); font-size: 13px; }
+
+/* ------------------------------------------------------------
+   Helpers & responsive behavior
+   ------------------------------------------------------------ */
+.container {
+  max-width: var(--max-page-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* content constraining utility */
+.center-constrain { max-width: var(--max-content-width); margin: 0 auto; }
+
+/* simple grid used to replicate responsive hiding in SVG */
+@media (max-width: 1024px) {
+  .table-row .col-points { display: none; }
+}
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 20px; }
+}
+
+/* utility spacing */
+.mt-6 { margin-top: 6px; }
+.mt-12 { margin-top: 12px; }
+.mb-12 { margin-bottom: 12px; }
+
+/* ------------------------------------------------------------
+   Accessibility & focus
+   ------------------------------------------------------------ */
+:focus { outline: 3px solid rgba(19,164,236,0.18); outline-offset: 2px; border-radius: 6px; }
+
+/* ------------------------------------------------------------
+   Extra tokens replicated from SVG for fidelity
+   ------------------------------------------------------------ */
+
+/* font size helpers (mirror svg .h1, .h2 etc) */
+.h1 { font-size: var(--h1-size); font-weight: 800; color: var(--text-900); margin: 0; }
+.h2 { font-size: var(--h2-size); font-weight: 700; color: var(--text-800); margin: 0; }
+.lead { font-size: var(--lead-size); color: var(--muted); }
+
+/* table text classes */
+.table-head-text { font-size: var(--table-head-size); font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.table-body-text { font-size: var(--table-body-size); color: var(--text-800); }
+
+/* very soft rounded helper */
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-sm { border-radius: var(--radius-sm); }
+
+/* soft drop shadow helper (SVG filter analogue) */
+.soft-shadow { box-shadow: var(--shadow-soft); }
+
+/* small vertical divider */
+.v-divider { width: 1px; background: var(--panel-border); height: 40px; display: inline-block; margin: 0 12px; }
+
+/* end of file */

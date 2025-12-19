@@ -1,0 +1,335 @@
+/* Global Animations & Transitions */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleInCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(14, 165, 233, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes neon-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #0ea5e9,
+      0 0 42px #0ea5e9,
+      0 0 82px #0ea5e9,
+      0 0 92px #0ea5e9,
+      0 0 102px #0ea5e9,
+      0 0 151px #0ea5e9;
+  }
+  50% {
+    text-shadow: 
+      0 0 10px #fff,
+      0 0 15px #fff,
+      0 0 25px #3b82f6,
+      0 0 50px #3b82f6,
+      0 0 90px #3b82f6,
+      0 0 100px #3b82f6,
+      0 0 110px #3b82f6,
+      0 0 160px #3b82f6;
+  }
+}
+
+/* Page Transitions */
+.pageTransitionEnter {
+  animation: slideInUp 0.5s ease-out forwards;
+}
+
+.pageTransitionExit {
+  animation: slideInDown 0.4s ease-in forwards;
+}
+
+/* Smooth transitions for React Router */
+.route-transition {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Component entrance animations */
+.componentEnter {
+  animation: scaleInCenter 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Hover effects */
+.hoverLift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hoverLift:hover {
+  transform: translateY(-4px);
+}
+
+.hoverGlow {
+  transition: all 0.3s ease;
+}
+
+.hoverGlow:hover {
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+}
+
+.hoverBright {
+  transition: all 0.3s ease;
+}
+
+.hoverBright:hover {
+  opacity: 1;
+  filter: brightness(1.1);
+}
+
+/* Focus states */
+.focusRing:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Stagger animations for lists */
+.stagger-item {
+  animation: slideInUp 0.5s ease-out both;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.4);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.6);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(14, 165, 233, 0.4);
+  color: #fff;
+}
+
+::-moz-selection {
+  background: rgba(14, 165, 233, 0.4);
+  color: #fff;
+}
+
+/* Disabled state animations */
+:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+}
+
+/* Loading animation */
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.loading {
+  animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+/* Tooltip animations */
+.tooltip {
+  animation: fadeIn 0.3s ease-out;
+  position: relative;
+}
+
+/* Modal animations */
+.modal-enter {
+  animation: scaleInCenter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-exit {
+  animation: scaleInCenter 0.2s cubic-bezier(0.4, 0, 0.2, 1) reverse;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

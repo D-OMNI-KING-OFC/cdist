@@ -1,0 +1,551 @@
+/* ============================================
+   BRAND DASHBOARD - MODERN REDESIGN
+   Professional, Interactive, Slick Layout
+   ============================================ */
+
+@import '../animations.modern.css';
+
+:root {
+  --primary-blue: #0ea5e9;
+  --primary-blue-light: #38bdf8;
+  --primary-cyan: #06b6d4;
+  --primary-purple: #a78bfa;
+  --primary-pink: #ec4899;
+  --bg-black: #020617;
+  --bg-dark: #030712;
+  --bg-darker: #010409;
+  --glass-soft: rgba(255, 255, 255, 0.02);
+  --glass-medium: rgba(255, 255, 255, 0.04);
+  --glass-hard: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --transition-smooth: 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================
+   MAIN DASHBOARD CONTAINER
+   ============================================ */
+
+.dashboardWrap {
+  background: 
+    radial-gradient(ellipse 100% 80% at 50% -10%, rgba(14, 165, 233, 0.12), transparent),
+    radial-gradient(ellipse 90% 70% at 80% 90%, rgba(59, 130, 246, 0.08), transparent),
+    linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0a1929 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14, 165, 233, 0.3) transparent;
+  animation: slideInLeft var(--transition-smooth);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.3);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.5);
+}
+
+/* Sidebar content wrapper */
+.sidebar > div > div {
+  background: linear-gradient(135deg, 
+    rgba(2, 6, 23, 0.6) 0%,
+    rgba(2, 6, 23, 0.4) 50%,
+    rgba(2, 6, 23, 0.3) 100%
+  ) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 165, 233, 0.2) !important;
+  box-shadow: inset 0 0 30px rgba(14, 165, 233, 0.05),
+              0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 16px !important;
+}
+
+.sidebar h2 {
+  background: linear-gradient(135deg, #fff 0%, var(--primary-blue-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* ============================================
+   NAVIGATION ITEMS
+   ============================================ */
+
+.navItem {
+  position: relative;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 200ms ease;
+  color: var(--text-secondary);
+}
+
+.navItem::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    rgba(14, 165, 233, 0) 0%,
+    rgba(14, 165, 233, 0.08) 50%,
+    rgba(14, 165, 233, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.navItem:hover {
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+
+.navItem:hover::before {
+  opacity: 1;
+}
+
+.navItemActive {
+  color: var(--primary-blue);
+  font-weight: 700;
+}
+
+.navItemActive::before {
+  opacity: 1;
+}
+
+.navItemActive span:first-of-type {
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-cyan));
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.6);
+}
+
+/* Ensure SVG icons are neon blue with glow */
+.navItem svg {
+  stroke: #0ea5e9;
+  fill: #0ea5e9;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: filter 200ms ease, stroke 200ms ease, fill 200ms ease;
+  filter: drop-shadow(0 0 6px rgba(14, 165, 233, 0.4));
+}
+
+/* Hover state - enhanced glow */
+.navItem:hover svg {
+  filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.6))
+          drop-shadow(0 0 6px rgba(6, 182, 212, 0.3));
+}
+
+/* Neon gradient glow effect for active items */
+.navItemActive svg {
+  stroke: #0ea5e9;
+  fill: #0ea5e9;
+  filter: drop-shadow(0 0 12px rgba(14, 165, 233, 0.9))
+          drop-shadow(0 0 16px rgba(6, 182, 212, 0.7))
+          drop-shadow(0 0 8px rgba(167, 139, 250, 0.5));
+}
+
+/* Micro-animation for the active nav item */
+@keyframes navPulse {
+  0% { transform: scale(0.98); opacity: 0.9; }
+  50% { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.navItemActive {
+  animation: navPulse 340ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Tab content wrapper to ensure consistent page entry animations */
+.tabContent {
+  animation: slideInUp var(--transition-smooth) ease-out;
+}
+
+/* Compact responsive nav item spacing */
+@media (max-width: 768px) {
+  .navItem {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+
+.main {
+  animation: slideInUp var(--transition-smooth);
+}
+
+.featureCard {
+  background: linear-gradient(135deg,
+    rgba(2, 6, 23, 0.4) 0%,
+    rgba(2, 6, 23, 0.2) 50%,
+    rgba(2, 6, 23, 0.1) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(14, 165, 233, 0.1), transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.featureCard > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   HEADER STYLING
+   ============================================ */
+
+.header {
+  animation: slideInDown 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  background: linear-gradient(135deg, #fff 0%, var(--primary-blue-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   SUMMARY GRID - STAT CARDS
+   ============================================ */
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  animation: slideInUp 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.previewCard {
+  background: linear-gradient(135deg,
+    rgba(2, 6, 23, 0.6) 0%,
+    rgba(2, 6, 23, 0.3) 100%
+  );
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 300ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.previewCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.15), transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.previewCard:hover {
+  border-color: rgba(14, 165, 233, 0.4);
+  background: linear-gradient(135deg,
+    rgba(2, 6, 23, 0.7) 0%,
+    rgba(2, 6, 23, 0.4) 100%
+  );
+  box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+  transform: translateY(-4px);
+}
+
+.previewCard:hover::before {
+  opacity: 1;
+}
+
+.previewCard h3 {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
+}
+
+.previewCard p {
+  color: var(--primary-blue-light);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 12px 0 0 0;
+  letter-spacing: -0.5px;
+}
+
+/* ============================================
+   PREVIEW GRID
+   ============================================ */
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  animation: slideInUp 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.previewInnerScroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14, 165, 233, 0.2) transparent;
+}
+
+.previewInnerScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.previewInnerScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.previewInnerScroll::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.2);
+  border-radius: 2px;
+}
+
+.previewInnerScroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.4);
+}
+
+/* ============================================
+   BUTTONS & CONTROLS
+   ============================================ */
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 400ms, height 400ms;
+  z-index: 0;
+}
+
+.btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-cyan));
+  color: #fff;
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 40px rgba(14, 165, 233, 0.6);
+  transform: translateY(-2px);
+  border-color: rgba(14, 165, 233, 0.6);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(59, 130, 246, 0.15));
+  color: var(--primary-blue-light);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(14, 165, 233, 0.5);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.3), rgba(59, 130, 246, 0.2));
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-ghost:hover {
+  background: rgba(14, 165, 233, 0.1);
+  border-color: rgba(14, 165, 233, 0.3);
+  color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   MOBILE NAVIGATION TOGGLE
+   ============================================ */
+
+.mobileNavToggle {
+  backdrop-filter: blur(10px);
+  animation: slideInDown 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mobileNavToggle:hover {
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0.15), rgba(59, 130, 246, 0.1));
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+}
+
+/* ============================================
+   SECTION STYLING
+   ============================================ */
+
+.sectionFull {
+  animation: slideInUp var(--transition-smooth);
+}
+
+.embeddedComponent {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .previewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ============================================
+   SMOOTH TAB TRANSITIONS
+   ============================================ */
+
+.tab-content {
+  animation: slideInUp 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.tab-content.exit {
+  animation: slideInUp 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse;
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 8px;
+}
+
+/* ============================================
+   ADDITIONAL EFFECTS
+   ============================================ */
+
+.gradient-border {
+  background: linear-gradient(135deg, var(--bg-black), var(--bg-dark)) padding-box,
+              linear-gradient(135deg, var(--primary-blue), var(--primary-cyan)) border-box;
+  border: 1px solid transparent;
+}
+
+.neon-text {
+  color: var(--primary-blue);
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.6),
+               0 0 20px rgba(14, 165, 233, 0.3);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Force sidebar to be fixed on desktop */
+.sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100vh !important;
+  z-index: 1350 !important;
+}
+

@@ -1,0 +1,256 @@
+:root {
+  --primary: #0ea5e9;
+  --primary-light: #38bdf8;
+  --primary-dark: #0284c7;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --neon-cyan: #00f0ff;
+  --neon-blue: #0066ff;
+  --bg-dark: #030712;
+  --bg-darker: #010409;
+  --glow-blue: rgba(14, 165, 233, 0.5);
+}
+
+.loaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(59, 130, 246, 0.1), transparent),
+    linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0a1929 100%);
+  background-attachment: fixed;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loaderLogoWrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  animation: 
+    float 3s ease-in-out infinite,
+    glow-pulse 2.5s ease-in-out infinite;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.4))
+          drop-shadow(0 0 40px rgba(59, 130, 246, 0.2));
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.4))
+            drop-shadow(0 0 40px rgba(59, 130, 246, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(14, 165, 233, 0.6))
+            drop-shadow(0 0 60px rgba(59, 130, 246, 0.3));
+  }
+}
+
+.loaderLogo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 16px;
+  animation: spin-slow 8s linear infinite;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(59, 130, 246, 0.05));
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+/* ===== Reflective light sweep ===== */
+.loaderLogoWrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(14, 165, 233, 0.5) 40%,
+    rgba(59, 130, 246, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine-sweep 3s ease-in-out infinite;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+@keyframes shine-sweep {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ===== Glowing rings ===== */
+.loaderLogoWrap::after {
+  content: "";
+  position: absolute;
+  inset: -15px;
+  border: 2px solid transparent;
+  border-top: 2px solid rgba(14, 165, 233, 0.6);
+  border-right: 2px solid rgba(59, 130, 246, 0.4);
+  border-radius: 50%;
+  animation: rotate-ring 3s linear infinite;
+  z-index: -1;
+}
+
+@keyframes rotate-ring {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Loading text ===== */
+.loaderText {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: 2px;
+  animation: fade-blink 2s ease-in-out infinite;
+}
+
+@keyframes fade-blink {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ===== Dot pulse ===== */
+.loaderDots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.loaderDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  animation: bounce 1.4s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+
+.loaderDot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loaderDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loaderDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* ===== Progress bar ===== */
+.loaderProgressBar {
+  position: absolute;
+  bottom: 60px;
+  width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.loaderProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+  background-size: 200% 100%;
+  animation: progress-fill 3s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.6);
+}
+
+@keyframes progress-fill {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* ===== Animations ===== */
+
+@keyframes swing {
+  0% {
+    transform: rotateY(-25deg);
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.4));
+  }
+  50% {
+    transform: rotateY(25deg);
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6))
+            drop-shadow(0 0 40px rgba(0, 255, 255, 0.3));
+  }
+  100% {
+    transform: rotateY(-25deg);
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.4));
+  }
+}
+
+@keyframes lightSweep {
+  0% { left: -55%; opacity: 0; }
+  20% { left: -40%; opacity: 0.8; }
+  50% { left: 100%; opacity: 0; }
+  100% { left: 100%; opacity: 0; }
+}
